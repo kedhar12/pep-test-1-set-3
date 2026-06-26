@@ -1,19 +1,27 @@
-n = int(input())
-weight = []
+from collections import Counter
 
-for _ in range(n):
-    weight.append(float(input()))
+def frequent_words(text, k):
+   
+    words = text.split()
 
-weight.sort()
+  
+    freq = Counter(words)
 
-left = 0
-right = n - 1
-trips = 0
+    
+    result = []
+    seen = set()
 
-while left <= right:
-    if left < right and weight[left] + weight[right] <= 3.0:
-        left += 1
-    right -= 1
-    trips += 1
+    for word in words:
+        if word not in seen:
+            seen.add(word)
+            if freq[word] >= k:
+                result.append(word)
 
-print(trips)
+    return result
+
+
+# Example
+text = "a mouse is smaller than a dog but a dog is stronger"
+k = 2
+
+print(frequent_words(text, k))
